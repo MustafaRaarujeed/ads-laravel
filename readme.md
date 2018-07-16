@@ -6,4 +6,4 @@
 - User Model -> Morph Relation with Managers, Admins and Advertisers models
 - Admin Model
 - Manager Model
-- Advertiser Model
+- Advertiser Model 
