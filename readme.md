@@ -1,1 +1,6 @@
-Upgraded Version of Outdated Ads System with Laravel
+#Details
+
+- Category Model
+- Banner Model
+
+- User Model
