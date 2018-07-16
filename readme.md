@@ -4,7 +4,7 @@ Ads system built with PHP Laravel, it will be with a functioning API and its doc
 
 # Details
 
-## Models:
+### Models:
 - [ ] Category Model (Many-To-Many Relations with Banners - **up for discussion**)
 - [ ] Banner Model (Many-To-Many Relations with Categories - **up for discussion**)
 - [ ] User Model -> Morph Relation with Managers, Admins and Advertisers models
@@ -12,7 +12,7 @@ Ads system built with PHP Laravel, it will be with a functioning API and its doc
 - [ ] Manager Model
 - [ ] Advertiser Model
 
-## DB:
+### DB:
 - [ ] Category: name_ar, name_en, is_visible
 - [ ] Banner: category_id, title, link, sort, desc, image, is_featured, is_visible
 - [ ] Banner-Category: banner_id, category_id (**up for discussion**)
@@ -20,3 +20,10 @@ Ads system built with PHP Laravel, it will be with a functioning API and its doc
 - [ ] Admin: 
 - [ ] Manager:
 - [ ] Advertiser:
+
+### API Routes:
+APIs Endpoint `/api/v1`
+
+| Method                  | URL                  		 | Headers                  | Comments                  				|
+| ----------------------- | ---------------------------- | ------------------------ | ----------------------------------------- |
+|                         | ``	 	 					 | 		 					| 											|
