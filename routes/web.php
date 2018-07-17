@@ -13,18 +13,23 @@
 
 // Front Page to display ads (categories and banners)
 Route::group(['prefix' => ''], function(){
+	
+	// Front end ads display
 	Route::get('/', 'AdsController@index');
 });
 
 // Backend
-Route::group(['prefix' => '/mange'], function(){
+Route::group(['prefix' => '/manage'], function(){
+	
 	// Login
 	Route::get('/', 'ManageAuthController@login');
 	
 	// Inside System Group - protected by middleware
 	Route::group(['prefix' => '/ads'], function(){
+
 		// View Ads(Categories and Banners)
 		Route::get('/', 'ManageAdsController@index');
+		
 		// Add Category CRUD - protected by middleware
 		Route::group(['prefix' => '/cat'], function(){
 			// Add
@@ -34,6 +39,7 @@ Route::group(['prefix' => '/mange'], function(){
 			// Delete
 			Route::delete('/del/{id}', 'ManageAdsController@catDelete');
 		});
+		
 		// Add Banner CRUD - protected by middleware
 		Route::group(['prefix' => '/banner'], function(){
 			// Add
@@ -43,8 +49,11 @@ Route::group(['prefix' => '/mange'], function(){
 			// Delete
 			Route::delete('/del/{id}', 'ManageAdsController@bannerDelete');
 		});
+		
 		// Add Admins
+		
 		// Add Advertiser
+		
 		// Logout
 		Route::get('/logout', 'ManageAuthController@logout');
 	});
