@@ -2,17 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Banner;
+use App\Category;
 use Illuminate\Http\Request;
 
 class ManageAdsController extends Controller
 {
 	/**
-	 * [index description]
-	 * @return [type] [description]
+	 * To display categories and banners with forms to fill
+     * new entries for both models
+	 * @return view with banners and categories model
 	 */
     public function index()
     {
-    	# code...
+    	$banners = Banner::all();
+        $categories = Category::all();
+        return view('manage.ads.index', [
+            'banners' => $banners,
+            'categories' => $categories
+        ]);
     }
 
     /* Category */
