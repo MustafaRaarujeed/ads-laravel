@@ -9,7 +9,7 @@ class Category extends Model
 
 	/**
 	 * [$fillable description]
-	 * @var [type] 
+	 * @var [type]
 	 */
     protected $fillable = [
         'name_ar',
