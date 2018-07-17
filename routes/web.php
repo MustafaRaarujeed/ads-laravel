@@ -18,6 +18,7 @@ Route::group(['prefix' => ''], function(){
 	Route::get('/', 'AdsController@index');
 });
 
+
 // Backend
 Route::group(['prefix' => '/manage'], function(){
 	
