@@ -19,7 +19,8 @@ class Category extends Model
 
 
     /**
-     * @return [type]
+     * [banners description]
+     * @return [type] [description]
      */
 	public function banners()
 	{

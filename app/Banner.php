@@ -22,8 +22,11 @@ class Banner extends Model
         'image',
     ];
 
-
-    public function categories()
+    /**
+     * [categories description]
+     * @return [type] [description]
+     */
+    public function category()
     {
     	return $this->belongsTo('App\Category', 'category_id');
     }
