@@ -6,7 +6,26 @@ Manage Ads
 
 @section('body')
 
-Ads (Banners and Categories) index - display table for categories and banners
-along with the functionlity of crud for both models.
+	<div class="row">
+		<div class="col-md-2">
+			<div class="card">
+				<div class="card-header">
+					{{ __('common.display_list') }}
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<a>{{ __('category.category') }}</a>
+					</li>
+					<li class="list-group-item">
+						<a>{{ __('banner.banner') }}</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-md-10">
+			@include('manage.ads.category.table')
+			@include('manage.ads.banner.table')
+		</div>
+	</div>
 
 @endsection
