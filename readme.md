@@ -2,6 +2,7 @@
 Ads system built with PHP Laravel, it will be with a functioning API and its documentation 
 
 
+
 # Details
 
 ### Models:
