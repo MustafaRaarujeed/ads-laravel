@@ -17,12 +17,12 @@ class CreateBannersTable extends Migration
             $table->increments('id');
             $table->integer('category_id');
             $table->string('title');
-            $table->string('link');
-            $table->integer('sort');
             $table->string('desc');
+            $table->string('image')->default('banner-default.jpg');
+            $table->string('link'); // Slug-Url
             $table->boolean('is_featured');
             $table->boolean('is_visible');
-            $table->string('image')->default('banner-default.jpg');
+            $table->integer('sort');
             $table->timestamps();
         });
     }
