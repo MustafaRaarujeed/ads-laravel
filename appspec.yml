@@ -5,17 +5,17 @@ files:
     destination: /var/www/html
 hooks:
    BeforeInstall:
-    - location: deployment/install_dependencies.sh
+    - location: scripts/install_dependencies.sh
       timeout: 300
       runas: root
    AfterInstall:
-    - location: deployment/deploy_laravel.sh
+    - location: scripts/deploy_laravel.sh
       timeout: 300
       runas: root
-    - location: deployment/change_permissions.sh
+    - location: scripts/change_permissions.sh
       timeout: 300
       runas: root
-    - location: deployment/restartapache.sh
+    - location: scripts/restartapache.sh
       runas: root
    ApplicationStart:
     - location: scripts/start_server.sh
