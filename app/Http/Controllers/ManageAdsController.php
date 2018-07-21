@@ -15,6 +15,7 @@ class ManageAdsController extends Controller
 	 */
     public function index()
     {
+        
     	$banners = Banner::all();
         $categories = Category::all();
         return view('manage.ads.index', [
