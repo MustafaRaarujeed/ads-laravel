@@ -12,6 +12,6 @@ class AdsController extends Controller
 	 */
     public function index()
     {
-    	
+    	return "Ads Laravel Hosted in AWS with CI/CD Implemented";
     }
 }
