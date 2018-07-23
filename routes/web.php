@@ -38,6 +38,7 @@ Route::group(['prefix' => '/manage'], function(){
 			// Add Post
 			Route::post('/add', 'ManageAdsController@catAdd')->name('cat.postAdd');
 			// Edit
+			Route::get('/edit/{id}', 'ManageAdsController@catEdit')->name('cat.edit');
 			// Update
 			// Delete
 			Route::delete('/del/{id}', 'ManageAdsController@catDelete');
