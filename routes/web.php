@@ -29,12 +29,14 @@ Route::group(['prefix' => '/manage'], function(){
 	Route::group(['prefix' => '/ads'], function(){
 
 		// View Ads(Categories and Banners)
-		Route::get('/', 'ManageAdsController@index');
+		Route::get('/', 'ManageAdsController@index')->name('ads.index');
 		
 		// Add Category CRUD - protected by middleware
 		Route::group(['prefix' => '/cat'], function(){
-			// Add
-			Route::post('/add', 'ManageAdsController@catAdd');
+			// Add View
+			Route::get('/add', 'ManageAdsController@catIndex')->name('cat.getAdd');
+			// Add Post
+			Route::post('/add', 'ManageAdsController@catAdd')->name('cat.postAdd');
 			// Edit
 			// Update
 			// Delete
