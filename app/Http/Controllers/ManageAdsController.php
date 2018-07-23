@@ -32,43 +32,85 @@ class ManageAdsController extends Controller
      */
     public function catIndex()
     {
-    	# code...
+    	return view('manage.ads.category.add');
     }
     
     /**
      * [catAdd description]
      * @return [type] [description]
      */
-    public function catAdd()
+    public function catAdd(Request $request)
     {
-    	# code...
+        // Validation
+        $rules = [
+            'cat_ar' => 'required',
+            'cat_en' => 'required',
+            'visible' => 'required',
+        ];
+        if($this->validate($request, $rules)) {
+            try {
+                $new_cat = new Category();
+                $new_cat->name_ar = $request['cat_ar'];
+                $new_cat->name_en = $request['cat_en'];
+                $new_cat->is_visible = $request['visible'];
+                $new_cat->save();
+                return redirect()->route('ads.index');
+            } catch(Exception $e) {
+                print_r($e);
+            }
+        } else {
+            // Print Message for Filling the required once
+        }
     }
 
     /**
      * [catEdit description]
      * @return [type] [description]
      */
-    public function catEdit()
+    public function catEdit($id)
     {
-    	# code...
+        $edit_cat = Category::find($id);
+        // dd($edit_cat->name_ar);
+        return view('manage.ads.category.edit', [
+            'category' => $edit_cat
+        ]);
     }
 
     /**
      * [catUpdate description]
      * @return [type] [description]
      */
-    public function catUpdate()
+    public function catUpdate(Request $request, $id)
     {
-    	# code...
+    	$rules = [
+            'cat_ar' => 'required',
+            'cat_en' => 'required',
+        ];
+        if($this->validate($request, $rules)) {
+            try {
+                $cat = Category::find($id);
+                $cat->name_ar = $request['cat_ar'];
+                $cat->name_en = $request['cat_en'];
+                $cat->is_visible = $request['visible'];
+                $cat->save();
+                return redirect()->route('ads.index');
+            } catch(Exception $e) {
+                print_r($e);
+            }
+        } else {
+            // Error Messages
+        }
     }
 
     /**
      * [catDelete description]
      * @return [type] [description]
      */
-    public function catDelete()
+    public function catDelete($id)
     {
-    	# code...
+        $cat = Category::find($id);
+        $cat->delete();
+        return redirect()->route('ads.index');
     }
 
     /* Banner */

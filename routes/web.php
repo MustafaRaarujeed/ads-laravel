@@ -29,16 +29,20 @@ Route::group(['prefix' => '/manage'], function(){
 	Route::group(['prefix' => '/ads'], function(){
 
 		// View Ads(Categories and Banners)
-		Route::get('/', 'ManageAdsController@index');
+		Route::get('/', 'ManageAdsController@index')->name('ads.index');
 		
 		// Add Category CRUD - protected by middleware
 		Route::group(['prefix' => '/cat'], function(){
-			// Add
-			Route::post('/add', 'ManageAdsController@catAdd');
+			// Add View
+			Route::get('/add', 'ManageAdsController@catIndex')->name('cat.getAdd');
+			// Add Post
+			Route::post('/add', 'ManageAdsController@catAdd')->name('cat.postAdd');
 			// Edit
+			Route::get('/edit/{id}', 'ManageAdsController@catEdit')->name('cat.edit');
 			// Update
+			Route::post('/edit/{id}', 'ManageAdsController@catUpdate')->name('cat.update');
 			// Delete
-			Route::delete('/del/{id}', 'ManageAdsController@catDelete');
+			Route::delete('/del/{id}', 'ManageAdsController@catDelete')->name('cat.delete');
 		});
 		
 		// Add Banner CRUD - protected by middleware

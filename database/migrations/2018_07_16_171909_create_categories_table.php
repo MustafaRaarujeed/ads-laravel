@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name_ar');
             $table->string('name_en');
-            $table->boolean('is_visible');
+            $table->boolean('is_visible')->default(1);
             $table->timestamps();
         });
     }
