@@ -8,9 +8,6 @@ use Illuminate\Http\Request;
 
 class ManageAdsController extends Controller
 {
-    protected $siteUrl = "http://localhost:8080/";
-    protected $siteAdminUrl = "manage/ads/";
-    protected $siteCategoryAddUrl = "cat/add";
 	/**
 	 * To display categories and banners with forms to fill
      * new entries for both models
@@ -35,12 +32,7 @@ class ManageAdsController extends Controller
      */
     public function catIndex()
     {
-        $button_title = "Submit";
-        $add_post_route = $this->siteUrl . $this->siteAdminUrl . $this->siteCategoryAddUrl;
-    	return view('manage.ads.category.add', [
-            'button_title' => $button_title,
-            'add_post_route' => $add_post_route,
-        ]);
+    	return view('manage.ads.category.add');
     }
     
     /**
@@ -53,6 +45,7 @@ class ManageAdsController extends Controller
         $rules = [
             'cat_ar' => 'required',
             'cat_en' => 'required',
+            'visible' => 'required',
         ];
         if($this->validate($request, $rules)) {
             try {
@@ -74,9 +67,12 @@ class ManageAdsController extends Controller
      * [catEdit description]
      * @return [type] [description]
      */
-    public function catEdit()
+    public function catEdit($id)
     {
-    	# code...
+        $edit_cat = Category::find($id);
+        // return view('manage.ads.category.edit', [
+
+        // ]);
     }
 
     /**
