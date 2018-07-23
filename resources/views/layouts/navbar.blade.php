@@ -7,7 +7,12 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('cat.getAdd') }}">Add Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link">Add Banner</a>
+                </li>
             </ul>
             <a class="btn btn-success">
                 <b>Logout</b>
