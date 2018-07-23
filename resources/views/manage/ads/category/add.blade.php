@@ -13,23 +13,24 @@ Manage Ads | Add Category
                     Add Category
                 </div>
                 <div class="card-body">
-                <form action="{{ $add_post_route }}" method="POST">
+                <form action="{{ route('cat.postAdd') }}" method="POST">
                         {!! csrf_field() !!}
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Name in English" name="cat_en" value="{{ $add_post_route }}">
+                            <input type="text" class="form-control" placeholder="Name in English" name="cat_en">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Name in Arabic" name="cat_ar" value="">
+                            <input type="text" class="form-control" placeholder="Name in Arabic" name="cat_ar">
                         </div>
                         <div class="form-group">
                             <label for="visible">Visible</label>
                             <select name="visible" class="form-control">
-                                <option value="0">Yes</option>
-                                <option value="1">No</option>
+                                <option selected disabled>-- Select Visiblity --</option>
+                                <option value="0">No</option>
+                                <option value="1">Yes</option>
                             </select>
-                            <small class="form-text text-muted">Choose if the category will be visible - Visible by Default</small>
+                            <small class="form-text text-muted">Choose if the category will be visible</small>
                         </div>
-                        <button type="submit" class="btn btn-success">{{ $button_title }}</button>
+                        <button type="submit" class="btn btn-success">Submit</button>
                     </form>
                 </div>
             </div>

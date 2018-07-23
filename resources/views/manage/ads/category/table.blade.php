@@ -22,7 +22,9 @@
 							<td>{{ $category->name_en }}</td>
 							<td>{{ $category->name_ar }}</td>
 							<td>{{ $category->is_visible ? "Yes" : "No" }}</td>
-							<td><i class="fa fa-pencil-square-o"></i></td>
+							<td>
+								<a href="{{ route('cat.edit', $category->id) }}">Edit</a>
+							</td>
 						</tr>
 					@endforeach
 				@else
