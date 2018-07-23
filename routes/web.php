@@ -40,6 +40,7 @@ Route::group(['prefix' => '/manage'], function(){
 			// Edit
 			Route::get('/edit/{id}', 'ManageAdsController@catEdit')->name('cat.edit');
 			// Update
+			Route::post('/edit/{id}', 'ManageAdsController@catUpdate')->name('cat.update');
 			// Delete
 			Route::delete('/del/{id}', 'ManageAdsController@catDelete');
 		});

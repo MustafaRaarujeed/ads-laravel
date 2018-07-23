@@ -70,18 +70,36 @@ class ManageAdsController extends Controller
     public function catEdit($id)
     {
         $edit_cat = Category::find($id);
-        // return view('manage.ads.category.edit', [
-
-        // ]);
+        // dd($edit_cat->name_ar);
+        return view('manage.ads.category.edit', [
+            'category' => $edit_cat
+        ]);
     }
 
     /**
      * [catUpdate description]
      * @return [type] [description]
      */
-    public function catUpdate()
+    public function catUpdate(Request $request, $id)
     {
-    	# code...
+    	$rules = [
+            'cat_ar' => 'required',
+            'cat_en' => 'required',
+        ];
+        if($this->validate($request, $rules)) {
+            try {
+                $cat = Category::find($id);
+                $cat->name_ar = $request['cat_ar'];
+                $cat->name_en = $request['cat_en'];
+                $cat->is_visible = $request['visible'];
+                $cat->save();
+                return redirect()->route('ads.index');
+            } catch(Exception $e) {
+                print_r($e);
+            }
+        } else {
+            // Error Messages
+        }
     }
 
     /**
