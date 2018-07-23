@@ -42,7 +42,7 @@ Route::group(['prefix' => '/manage'], function(){
 			// Update
 			Route::post('/edit/{id}', 'ManageAdsController@catUpdate')->name('cat.update');
 			// Delete
-			Route::delete('/del/{id}', 'ManageAdsController@catDelete');
+			Route::delete('/del/{id}', 'ManageAdsController@catDelete')->name('cat.delete');
 		});
 		
 		// Add Banner CRUD - protected by middleware

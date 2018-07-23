@@ -12,7 +12,7 @@
 					<th>{{ __('category.name_en') }}</th>
 					<th>{{ __('category.name_ar') }}</th>
 					<th>{{ __('common.visible') }}</th>
-					<th>{{ __('common.action') }}</th>
+					<th colspan="2">{{ __('common.action') }}</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,6 +24,13 @@
 							<td>{{ $category->is_visible ? "Yes" : "No" }}</td>
 							<td>
 								<a href="{{ route('cat.edit', $category->id) }}">Edit</a>
+							</td>
+							<td>
+								<form action="{{ route('cat.delete', ['id' => $category->id]) }}" method="POST">
+									{!! csrf_field() !!}
+									{{ method_field('DELETE') }}
+									<button type="submit">Del</button>
+								</form>
 							</td>
 						</tr>
 					@endforeach

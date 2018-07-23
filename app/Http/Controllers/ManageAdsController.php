@@ -106,9 +106,11 @@ class ManageAdsController extends Controller
      * [catDelete description]
      * @return [type] [description]
      */
-    public function catDelete()
+    public function catDelete($id)
     {
-    	# code...
+        $cat = Category::find($id);
+        $cat->delete();
+        return redirect()->route('ads.index');
     }
 
     /* Banner */
