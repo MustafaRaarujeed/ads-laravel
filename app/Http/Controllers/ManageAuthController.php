@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
+use App\Manager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ManageAuthController extends Controller
 {
@@ -12,7 +15,41 @@ class ManageAuthController extends Controller
 	 */
     public function login()
     {
-    	
+        if(Auth::check()) {
+            return redirect()->route('ads.index');
+        }
+    	return view('manage.auth.login');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function postLogin(Request $request)
+    {
+        // Define Form Rules
+        $rules = [
+            'email' => 'required',
+            'password' => 'required',
+        ];
+        // Validate request
+        $this->validate($request, $rules);
+
+        // Define Auth Rules
+        $authRules = [
+            'email' => $request['email'],
+            'password' => $request['password'],
+            'userable_type' => Manager::class,
+        ];
+
+        if(Auth::attempt($authRules)) {
+            // Fire Event to log success 
+            return redirect()->route('ads.index');
+        }
+
+        // Fire Event to log failed
+        return redirect()->back()->withErrors('The Email and Password Combination are Invalid');
     }
 
     /**
@@ -21,6 +58,8 @@ class ManageAuthController extends Controller
      */
     public function logout()
     {
-    	
+        Auth::logout();
+        \Session::flush();
+        return redirect()->route('login.get');
     }
 }

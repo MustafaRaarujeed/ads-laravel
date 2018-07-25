@@ -14,7 +14,7 @@
                     <a class="nav-link">Add Banner</a>
                 </li>
             </ul>
-            <a class="btn btn-success">
+            <a class="btn btn-success" href="{{ route('logout') }}">
                 <b>Logout</b>
             </a>
         </div>
