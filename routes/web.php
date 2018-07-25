@@ -23,10 +23,10 @@ Route::group(['prefix' => ''], function(){
 Route::group(['prefix' => '/manage'], function(){
 	
 	// Login
-	Route::get('/', 'ManageAuthController@login');
-	
+	Route::get('/', 'ManageAuthController@login')->name('login.get');
+	Route::post('/', 'ManageAuthController@postLogin')->name('login.post');
 	// Inside System Group - protected by middleware
-	Route::group(['prefix' => '/ads'], function(){
+	Route::group(['prefix' => '/ads', 'middleware' => 'managerAdmin'], function(){
 
 		// View Ads(Categories and Banners)
 		Route::get('/', 'ManageAdsController@index')->name('ads.index');
@@ -60,6 +60,6 @@ Route::group(['prefix' => '/manage'], function(){
 		// Add Advertiser
 		
 		// Logout
-		Route::get('/logout', 'ManageAuthController@logout');
+		Route::get('/logout', 'ManageAuthController@logout')->name('logout');
 	});
 });
