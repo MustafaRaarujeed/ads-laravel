@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Manager;
+use App\Events\LoginEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,11 +45,13 @@ class ManageAuthController extends Controller
         ];
 
         if(Auth::attempt($authRules)) {
-            // Fire Event to log success 
+            // Fire Event to log success
+            event(new LoginEvent($request, "success"));            
             return redirect()->route('ads.index');
         }
 
         // Fire Event to log failed
+        event(new LoginEvent($request, "fail"));
         return redirect()->back()->withErrors('The Email and Password Combination are Invalid');
     }
 
