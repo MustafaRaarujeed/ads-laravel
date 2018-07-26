@@ -14,6 +14,7 @@
                     <a class="nav-link">Add Banner</a>
                 </li>
             </ul>
+            {{ auth()->user()->name }}
             <a class="btn btn-success" href="{{ route('logout') }}">
                 <b>Logout</b>
             </a>

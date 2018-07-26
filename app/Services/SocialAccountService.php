@@ -27,7 +27,8 @@ class SocialAccountService
         
         $user = User::where('email', $providerUser->getEmail())->first();
 
-        if(! $user) {            $fields = [
+        if(! $user) {
+        	$fields = [
                 'name' => $providerUser->name,
                 'email' => $providerUser->email,
             ];
