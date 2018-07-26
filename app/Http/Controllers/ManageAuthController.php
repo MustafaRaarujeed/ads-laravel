@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Socialite;
-use App\Manager;
 use App\Events\LoginEvent;
+use App\LinkedSocialAccounts;
+use App\Manager;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Socialite;
 
 class ManageAuthController extends Controller
 {
@@ -89,40 +90,33 @@ class ManageAuthController extends Controller
 
         $authUser = $this->findOrCreateUser($user, 'github');
         
-        $authRules = [
-            'email' => $authUser->email,
-            'userable_type' => Manager::class,
-        ];
+        auth()->login($authUser, true);
 
-        if(Auth::attempt($authRules)) {
-            return redirect()->route('ads.index');
-        } else {
-            dd("Did not validate");
-        }
+        return redirect()->route('ads.index');
     }
 
-    public function findOrCreateUser($user, $provider)
+    public function findOrCreateUser($providerUser, $provider)
     {
         $account = LinkedSocialAccounts::where('provider_name', $provider)
-                    ->where('provider_id', $user->getId())
+                    ->where('provider_id', $providerUser->getId())
                     ->first();
 
         if($account) {
             return $account->user;
         }
         
-        $user = User::where('email', $user->getEmail())->first();
+        $user = User::where('email', $providerUser->getEmail())->first();
 
         if(! $user) {
             $fields = [
-                'name' => $user->name,
-                'email' => $user->email,
+                'name' => $providerUser->name,
+                'email' => $providerUser->email,
             ];
             $user = User::createManager($fields);
         }
 
         $user->accounts()->create([
-            'provider_id' => $user->getId(),
+            'provider_id' => $providerUser->getId(),
             'provider_name' => $provider,
         ]);
 
