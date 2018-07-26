@@ -13,17 +13,11 @@ class User extends Authenticatable
     const MANAGER = "Manager";
     const ADVERTISER = "Advertiser";
 
-
+    /**
+     * [$guarded description]
+     * @var array
+     */
     protected $guarded = [];
-
-    // /**
-    //  * The attributes that are mass assignable.
-    //  *
-    //  * @var array
-    //  */
-    // protected $fillable = [
-    //     'name', 'email', 'password', 'confirmed', 
-    // ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -34,12 +28,19 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-
+    /**
+     * [userable description]
+     * @return [type] [description]
+     */
     public function userable()
     {
         return $this->morphTo();
     }
 
+    /**
+     * [managers description]
+     * @return [type] [description]
+     */
     public static function managers()
     {
         return User::where('userable_type', Manager::class());
@@ -55,11 +56,21 @@ class User extends Authenticatable
     //     return User::where('userable_type', Advertiser::class());
     // }
 
+    /**
+     * [accounts description]
+     * @return [type] [description]
+     */
     public function accounts()
     {
         return $this->hasMany('App\LinkedSocialAccounts');
     }
 
+    /**
+     * [createAndAssociate description]
+     * @param  [type] $fields   [description]
+     * @param  [type] $userType [description]
+     * @return [type]           [description]
+     */
     public static function createAndAssociate($fields, $userType)
     {
         $user = User::create($fields);
@@ -68,6 +79,11 @@ class User extends Authenticatable
         return $user;
     }
 
+    /**
+     * [createManager description]
+     * @param  [type] $fields [description]
+     * @return [type]         [description]
+     */
     public static function createManager($fields)
     {
         return User::createAndAssociate(

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+k<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -41,6 +41,7 @@
                 <div class="field">
                     <div class="control">
                         <button type="submit" class="button is-success is-normal is-fullwidth">Login</button>
+                        <a type="submit" class="button is-success is-normal is-fullwidth" href="{{ route('login.github') }}">Github Login</a>
                     </div>
                 </div>
             </form>

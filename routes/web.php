@@ -22,8 +22,8 @@ Route::group(['prefix' => ''], function(){
 // Backend
 Route::group(['prefix' => '/manage'], function(){
 	
-	Route::get('login/github', 'ManageAuthController@redirectToProvider');
-	Route::get('login/github/callback', 'ManageAuthController@handleProviderCallback');
+	Route::get('login/github', 'ManageSocialAuthController@redirectToProvider')->name('login.github');
+	Route::get('login/github/callback', 'ManageSocialAuthController@handleProviderCallback');
 
 	// Login
 	Route::get('/', 'ManageAuthController@login')->name('login.get');

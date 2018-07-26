@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\LoginEvent;
-use App\LinkedSocialAccounts;
-use App\Manager;
 use App\User;
+use App\Manager;
+use App\Events\LoginEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Socialite;
 
 class ManageAuthController extends Controller
 {
@@ -25,9 +23,9 @@ class ManageAuthController extends Controller
     }
 
     /**
-     * Undocumented function
-     *
-     * @return void
+     * [postLogin description]
+     * @param  Request $request [description]
+     * @return [type]           [description]
      */
     public function postLogin(Request $request)
     {
@@ -68,59 +66,4 @@ class ManageAuthController extends Controller
         return redirect()->route('login.get');
     }
 
-    /*Third Part*/
-    /**
-     * Redirect the user to the GitHub authentication page.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function redirectToProvider()
-    {
-        return Socialite::driver('github')->redirect();
-    }
-
-    /**
-     * Obtain the user information from GitHub.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback()
-    {
-        $user = Socialite::driver('github')->user();
-
-        $authUser = $this->findOrCreateUser($user, 'github');
-        
-        auth()->login($authUser, true);
-
-        return redirect()->route('ads.index');
-    }
-
-    public function findOrCreateUser($providerUser, $provider)
-    {
-        $account = LinkedSocialAccounts::where('provider_name', $provider)
-                    ->where('provider_id', $providerUser->getId())
-                    ->first();
-
-        if($account) {
-            return $account->user;
-        }
-        
-        $user = User::where('email', $providerUser->getEmail())->first();
-
-        if(! $user) {
-            $fields = [
-                'name' => $providerUser->name,
-                'email' => $providerUser->email,
-            ];
-            $user = User::createManager($fields);
-        }
-
-        $user->accounts()->create([
-            'provider_id' => $providerUser->getId(),
-            'provider_name' => $provider,
-        ]);
-
-        return $user;
-
-    }
 }
