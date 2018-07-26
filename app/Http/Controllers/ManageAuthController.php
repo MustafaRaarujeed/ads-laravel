@@ -88,21 +88,33 @@ class ManageAuthController extends Controller
     {
         $user = Socialite::driver('github')->user();
 
-        $authUser = findOrCreateUser($user);
-        Auth::login($authUser, true);
-        event(new LoginEvent($request, "success"));
-        return redirect()->route('ads.index');
+        $authUser = $this->findOrCreateUser($user);
+        
+        $authRules = [
+            'email' => $authUser->email,
+            'userable_type' => Manager::class,
+        ];
+
+        if(Auth::attempt($authRules)) {
+            return redirect()->route('ads.index');
+        } else {
+            dd("Did not validate");
+        }
     }
 
     public function findOrCreateUser($user)
     {
-        $authUser = User::where('email', $user->getEmail());
+        $authUser = User::where('email', $user->getEmail())->first();
+
         if($authUser) {
             return $authUser;
         }
-        return User::create([
+
+        $fields = [
             'name' => $user->name,
             'email' => $user->email,
-        ]);
+        ];
+
+        return User::createManager($fields);
     }
 }
