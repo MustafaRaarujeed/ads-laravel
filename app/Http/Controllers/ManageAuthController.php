@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
 use App\User;
 use Socialite;
 use App\Manager;
@@ -88,7 +87,7 @@ class ManageAuthController extends Controller
     {
         $user = Socialite::driver('github')->user();
 
-        $authUser = $this->findOrCreateUser($user);
+        $authUser = $this->findOrCreateUser($user, 'github');
         
         $authRules = [
             'email' => $authUser->email,
@@ -102,19 +101,32 @@ class ManageAuthController extends Controller
         }
     }
 
-    public function findOrCreateUser($user)
+    public function findOrCreateUser($user, $provider)
     {
-        $authUser = User::where('email', $user->getEmail())->first();
+        $account = LinkedSocialAccounts::where('provider_name', $provider)
+                    ->where('provider_id', $user->getId())
+                    ->first();
 
-        if($authUser) {
-            return $authUser;
+        if($account) {
+            return $account->user;
+        }
+        
+        $user = User::where('email', $user->getEmail())->first();
+
+        if(! $user) {
+            $fields = [
+                'name' => $user->name,
+                'email' => $user->email,
+            ];
+            $user = User::createManager($fields);
         }
 
-        $fields = [
-            'name' => $user->name,
-            'email' => $user->email,
-        ];
+        $user->accounts()->create([
+            'provider_id' => $user->getId(),
+            'provider_name' => $provider,
+        ]);
 
-        return User::createManager($fields);
+        return $user;
+
     }
 }

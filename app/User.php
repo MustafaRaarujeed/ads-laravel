@@ -55,6 +55,11 @@ class User extends Authenticatable
     //     return User::where('userable_type', Advertiser::class());
     // }
 
+    public function accounts()
+    {
+        return $this->hasMany('App\LinkedSocialAccounts');
+    }
+
     public static function createAndAssociate($fields, $userType)
     {
         $user = User::create($fields);
