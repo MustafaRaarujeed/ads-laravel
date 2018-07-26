@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Manager;
 use App\Events\LoginEvent;
+use App\Manager;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
 
 class ManageAuthController extends Controller
 {
@@ -64,5 +65,29 @@ class ManageAuthController extends Controller
         Auth::logout();
         \Session::flush();
         return redirect()->route('login.get');
+    }
+
+    /*Third Part*/
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('github')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function handleProviderCallback()
+    {
+        $user = Socialite::driver('github')->user();
+
+        // $user->token;
+        dd($user);
     }
 }
