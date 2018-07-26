@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\LoginEvent;
-use App\Manager;
+use Auth;
 use App\User;
+use Socialite;
+use App\Manager;
+use App\Events\LoginEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Laravel\Socialite\Facades\Socialite;
 
 class ManageAuthController extends Controller
 {
@@ -87,7 +88,21 @@ class ManageAuthController extends Controller
     {
         $user = Socialite::driver('github')->user();
 
-        // $user->token;
-        dd($user);
+        $authUser = findOrCreateUser($user);
+        Auth::login($authUser, true);
+        event(new LoginEvent($request, "success"));
+        return redirect()->route('ads.index');
+    }
+
+    public function findOrCreateUser($user)
+    {
+        $authUser = User::where('email', $user->getEmail());
+        if($authUser) {
+            return $authUser;
+        }
+        return User::create([
+            'name' => $user->name,
+            'email' => $user->email,
+        ]);
     }
 }
