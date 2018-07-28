@@ -19,6 +19,7 @@
 					<th>{{ __('common.visible') }}</th>
 					<th>{{ __('banner.image') }}</th>
 					<th>{{ __('common.sort') }}</th>
+					<th>{{ __('common.created_by') }}</th>
 					<th>{{ __('common.action') }}</th>
 				</tr>
 			</thead>
@@ -33,12 +34,13 @@
 							<td>{{ $banner->is_visible ? "Yes" : "No" }}</td>
 							<td>{{ $banner->image }}</td>
 							<td>{{ $banner->sort }}</td>
+							<td>{{ $banner->user->name }}</td>
 							<td><i class="fa fa-pencil-square-o"></i></td>
 						</tr>
 					@endforeach
 				@else
 					<tr class="text-center">
-						<td colspan="8">{{ __('banner.no_banner') }}</td>
+						<td colspan="9">{{ __('banner.no_banner') }}</td>
 					</tr>
 				@endif
 			</tbody>

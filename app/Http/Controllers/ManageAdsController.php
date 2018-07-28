@@ -13,9 +13,9 @@ class ManageAdsController extends Controller
      * new entries for both models
 	 * @return view with banners and categories model
 	 */
+    
     public function index()
     {
-        
     	$banners = Banner::all();
         $categories = Category::all();
         return view('manage.ads.index', [
@@ -53,6 +53,7 @@ class ManageAdsController extends Controller
                 $new_cat->name_ar = $request['cat_ar'];
                 $new_cat->name_en = $request['cat_en'];
                 $new_cat->is_visible = $request['visible'];
+                $new_cat->user_id = auth()->user()->id;
                 $new_cat->save();
                 return redirect()->route('ads.index');
             } catch(Exception $e) {

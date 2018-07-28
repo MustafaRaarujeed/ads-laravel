@@ -12,6 +12,7 @@
 					<th>{{ __('category.name_en') }}</th>
 					<th>{{ __('category.name_ar') }}</th>
 					<th>{{ __('common.visible') }}</th>
+					<th>{{ __('common.created_by') }}</th>
 					<th colspan="2">{{ __('common.action') }}</th>
 				</tr>
 			</thead>
@@ -22,6 +23,7 @@
 							<td>{{ $category->name_en }}</td>
 							<td>{{ $category->name_ar }}</td>
 							<td>{{ $category->is_visible ? "Yes" : "No" }}</td>
+							<td>{{ $category->user->name }}</td>
 							<td>
 								<a href="{{ route('cat.edit', $category->id) }}">Edit</a>
 							</td>
@@ -36,7 +38,7 @@
 					@endforeach
 				@else
 					<tr class="text-center">
-						<td colspan="4">{{ __('category.no_category') }}</td>
+						<td colspan="5">{{ __('category.no_category') }}</td>
 					</tr>
 				@endif
 			</tbody>

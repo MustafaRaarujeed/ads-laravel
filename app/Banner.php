@@ -23,6 +23,15 @@ class Banner extends Model
     ];
 
     /**
+     * [user description]
+     * @return [type] [description]
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    /**
      * [categories description]
      * @return [type] [description]
      */

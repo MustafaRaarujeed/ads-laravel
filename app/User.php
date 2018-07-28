@@ -66,6 +66,24 @@ class User extends Authenticatable
     }
 
     /**
+     * [categories description]
+     * @return [type] [description]
+     */
+    public function categories()
+    {
+        return $this->hasMany('App\Category');
+    }
+
+    /**
+     * [banners description]
+     * @return [type] [description]
+     */
+    public function banners()
+    {
+        return $this->hasMany('App\Banner');
+    }
+
+    /**
      * [createAndAssociate description]
      * @param  [type] $fields   [description]
      * @param  [type] $userType [description]

@@ -17,6 +17,14 @@ class Category extends Model
         'is_visible',
     ];
 
+    /**
+     * [user description]
+     * @return [type] [description]
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     /**
      * [banners description]
