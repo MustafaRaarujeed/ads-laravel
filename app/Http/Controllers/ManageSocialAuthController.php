@@ -31,6 +31,8 @@ class ManageSocialAuthController extends Controller
         $user = Socialite::driver('github')->user();
 
         $authUser = $accountService->findOrCreate($user, 'github');
+
+        dd($authUser);
         
         auth()->login($authUser, true);
 
