@@ -32,7 +32,7 @@ class ManageSocialAuthController extends Controller
 
         $authUser = $accountService->findOrCreate($user, 'github');
 
-        dd($authUser);
+        dd($authUser); 
         
         auth()->login($authUser, true);
 
