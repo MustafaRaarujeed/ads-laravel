@@ -46,7 +46,7 @@ class ManageAuthController extends Controller
 
         if(Auth::attempt($authRules)) {
             // Fire Event to log success
-            event(new LoginEvent($request, "success"));            
+            event(new LoginEvent($request, "success"));
             return redirect()->route('ads.index');
         }
 
