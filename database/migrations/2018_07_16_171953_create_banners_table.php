@@ -15,7 +15,7 @@ class CreateBannersTable extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('category_id');
+            $table->integer('category_id')->unsigned();
             $table->string('title');
             $table->string('desc');
             $table->string('image')->default('banner-default.jpg');
@@ -24,6 +24,10 @@ class CreateBannersTable extends Migration
             $table->boolean('is_visible');
             $table->integer('sort');
             $table->timestamps();
+
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+
         });
     }
 

@@ -14,7 +14,8 @@ class AddUserIdToCategory extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->integer('user_id')->after('is_visible');
+            $table->integer('user_id')->after('is_visible')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -14,7 +14,8 @@ class AddUserIdToBanner extends Migration
     public function up()
     {
         Schema::table('banners', function (Blueprint $table) {
-            $table->integer('user_id')->after('is_visible');
+            $table->integer('user_id')->after('is_visible')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
