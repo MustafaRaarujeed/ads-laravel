@@ -11,7 +11,7 @@
                     <a class="nav-link" href="{{ route('cat.getAdd') }}">Add Category</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link">Add Banner</a>
+                    <a class="nav-link" href="{{ route('ban.getAdd') }}">Add Banner</a>
                 </li>
             </ul>
             {{ auth()->user()->name }}

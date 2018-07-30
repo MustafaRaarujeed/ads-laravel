@@ -122,16 +122,19 @@ class ManageAdsController extends Controller
      */
     public function bannerIndex()
     {
-    	# code...
+    	return view('manage.ads.banner.add');
     }
     
     /**
      * [bannerAdd description]
      * @return [type] [description]
      */
-    public function bannerAdd()
+    public function bannerAdd(Request $request)
     {
-    	# code...
+        dd($request->all());
+        //TODO: Validation
+        //TODO: Image Store (Thumbnail)
+        //TODO: Slug/Link Url must be generated automatically
     }
 
     /**

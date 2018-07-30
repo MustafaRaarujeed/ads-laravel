@@ -50,8 +50,10 @@ Route::group(['prefix' => '/manage'], function(){
 		
 		// Add Banner CRUD - protected by middleware
 		Route::group(['prefix' => '/banner'], function(){
-			// Add
-			Route::post('/add', 'ManageAdsController@bannerAdd');
+			// Add View
+            Route::get('/add', 'ManageAdsController@bannerIndex')->name('ban.getAdd');
+            // Add Post
+			Route::post('/add', 'ManageAdsController@bannerAdd')->name('ban.postAdd');
 			// Edit
 			// Update
 			// Delete
