@@ -16,8 +16,8 @@ class CreateBannersTable extends Migration
         Schema::create('banners', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('category_id')->unsigned();
-            $table->string('title');
-            $table->string('desc');
+            $table->string('title', 300);
+            $table->text('desc');
             $table->string('image')->default('banner-default.jpg');
             $table->string('link'); // Slug-Url
             $table->boolean('is_featured');
