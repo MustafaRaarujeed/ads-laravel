@@ -16,10 +16,10 @@ Manage Ads | Edit Category
                 <form action="{{ route('cat.update', $category->id) }}" method="POST">
                         {!! csrf_field() !!}
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Name in English" name="cat_en" value="{{ $category->name_en }}">
+                            <input type="text" class="form-control" placeholder="Name in English" name="cat_en" value="{{ json_decode($category->name)[0] }}">
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Name in Arabic" name="cat_ar" value="{{ $category->name_ar }}">
+                            <input type="text" class="form-control" placeholder="Name in Arabic" name="cat_ar" value="{{ json_decode($category->name)[1] }}">
                         </div>
                         <div class="form-group">
                             <label for="visible">Visible</label>

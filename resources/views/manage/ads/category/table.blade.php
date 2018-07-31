@@ -20,8 +20,8 @@
 				@if(count($categories))
 					@foreach($categories as $category)
 						<tr>
-							<td>{{ $category->name_en }}</td>
-							<td>{{ $category->name_ar }}</td>
+							<td>{{ json_decode($category->name)[0] }}</td>
+							<td>{{ json_decode($category->name)[1] }}</td>
 							<td>{{ $category->is_visible ? "Yes" : "No" }}</td>
 							<td>{{ $category->user->name }}</td>
 							<td>

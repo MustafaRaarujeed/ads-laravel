@@ -27,8 +27,8 @@
 				@if(count($banners))
 					@foreach($banners as $banner)
 						<tr>
-							<td>{{ $banner->category->name_en }}</td>
-							<td>{{ $banner->title }}</td>
+							<td>{{ json_decode($banner->category->name)[0] }}</td>
+							<td>{{ json_decode($banner->title)[0] }}</td>
 							<td>{{ $banner->link }}</td>
 							<td>{{ $banner->is_featured  ? "Yes" : "No" }}</td>
 							<td>{{ $banner->is_visible ? "Yes" : "No" }}</td>
