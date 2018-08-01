@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 class ManageAdsController extends Controller
 {
+    // TODO: Order By
 	/**
 	 * To display categories and banners with forms to fill
      * new entries for both models
