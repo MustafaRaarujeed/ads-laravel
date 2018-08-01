@@ -14,10 +14,8 @@
 				<tr class="table-light">
 					<th>{{ __('category.category') }}</th>
 					<th>{{ __('banner.title') }}</th>
-					<th>{{ __('banner.link') }}</th>
 					<th>{{ __('common.featured') }}</th>
 					<th>{{ __('common.visible') }}</th>
-					<th>{{ __('banner.image') }}</th>
 					<th>{{ __('common.sort') }}</th>
 					<th>{{ __('common.created_by') }}</th>
 					<th>{{ __('common.action') }}</th>
@@ -28,11 +26,14 @@
 					@foreach($banners as $banner)
 						<tr>
 							<td>{{ json_decode($banner->category->name)[0] }}</td>
-							<td>{{ json_decode($banner->title)[0] }}</td>
-							<td>{{ $banner->link }}</td>
+							<td>
+								<a href="{{ asset('images/'. $banner->image) }}" target="_blank">
+									{{ json_decode($banner->title)[0] }}
+								</a>
+								<small class="form-text text-muted">(Click - To View Banner Image in a New Tab)</small>
+							</td>
 							<td>{{ $banner->is_featured  ? "Yes" : "No" }}</td>
 							<td>{{ $banner->is_visible ? "Yes" : "No" }}</td>
-							<td>{{ $banner->image }}</td>
 							<td>{{ $banner->sort }}</td>
 							<td>{{ $banner->user->name }}</td>
 							<td><i class="fa fa-pencil-square-o"></i></td>

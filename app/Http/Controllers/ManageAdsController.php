@@ -45,8 +45,8 @@ class ManageAdsController extends Controller
     {
         // Validation
         $rules = [
-            'cat_ar' => 'required',
             'cat_en' => 'required',
+            'cat_ar' => 'required',
             'visible' => 'required',
         ];
         if($this->validate($request, $rules)) {
@@ -62,8 +62,6 @@ class ManageAdsController extends Controller
             } catch(\Exception $e) {
                 print_r($e);
             }
-        } else {
-            // Print Message for Filling the required once
         }
     }
 
@@ -104,8 +102,6 @@ class ManageAdsController extends Controller
             } catch(\Exception $e) {
                 print_r($e);
             }
-        } else {
-            // Error Messages
         }
     }
 
@@ -115,6 +111,7 @@ class ManageAdsController extends Controller
      */
     public function catDelete($id)
     {
+        // TODO: cascade delete of banner
         $cat = Category::find($id);
         $cat->delete();
         return redirect()->route('ads.index');
@@ -145,7 +142,6 @@ class ManageAdsController extends Controller
         // TODO: S3 Image Upload File
         // TODO: Path of Image Upload
         // TODO: error messages upon wrong file submitted
-        // TODO: error messages upon wrong validation of form fields
 
         // Validation
         $rules = [
@@ -193,8 +189,6 @@ class ManageAdsController extends Controller
             } catch (Exception $e) {
                 print_r($e);
             }
-        } else {
-            // print error messages
         }
     }
 

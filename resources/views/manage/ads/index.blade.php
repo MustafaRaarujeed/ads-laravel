@@ -24,6 +24,7 @@ Manage Ads
 		{{--</div>--}}
 		<div class="col-md-12">
 			@include('manage.ads.category.table')
+			<br>
 			@include('manage.ads.banner.table')
 		</div>
 	</div>
