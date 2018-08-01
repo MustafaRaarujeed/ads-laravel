@@ -25,13 +25,13 @@
 							<td>{{ $category->is_visible ? "Yes" : "No" }}</td>
 							<td>{{ $category->user->name }}</td>
 							<td>
-								<a href="{{ route('cat.edit', $category->id) }}">Edit</a>
+								<a href="{{ route('cat.edit', $category->link) }}"><i class="fas fa-edit"></i></a>
 							</td>
 							<td>
 								<form action="{{ route('cat.delete', ['id' => $category->id]) }}" method="POST">
 									{!! csrf_field() !!}
 									{{ method_field('DELETE') }}
-									<button type="submit">Del</button>
+									<button type="submit"><i class="fas fa-trash"></i></button>
 								</form>
 							</td>
 						</tr>

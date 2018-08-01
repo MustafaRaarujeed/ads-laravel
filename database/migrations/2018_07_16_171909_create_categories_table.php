@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name', 300);
             $table->boolean('is_visible')->default(1);
+            $table->string('link'); // Slug-Url
             $table->timestamps();
         });
     }

@@ -41,7 +41,7 @@ Route::group(['prefix' => '/manage'], function(){
 			// Add Post
 			Route::post('/add', 'ManageAdsController@catAdd')->name('cat.postAdd');
 			// Edit
-			Route::get('/edit/{id}', 'ManageAdsController@catEdit')->name('cat.edit');
+			Route::get('/edit/{slug}', 'ManageAdsController@catEdit')->name('cat.edit');
 			// Update
 			Route::post('/edit/{id}', 'ManageAdsController@catUpdate')->name('cat.update');
 			// Delete
@@ -55,7 +55,9 @@ Route::group(['prefix' => '/manage'], function(){
             // Add Post
 			Route::post('/add', 'ManageAdsController@bannerAdd')->name('ban.postAdd');
 			// Edit
+            Route::get('/edit/{slug}', 'ManageAdsController@bannerEdit')->name('ban.edit');
 			// Update
+            Route::get('/edit/{id}', 'ManageAdsController@bannerUpdate')->name('ban.update');
 			// Delete
 			Route::delete('/del/{id}', 'ManageAdsController@bannerDelete');
 		});

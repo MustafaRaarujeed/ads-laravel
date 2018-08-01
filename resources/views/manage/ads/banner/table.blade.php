@@ -36,7 +36,9 @@
 							<td>{{ $banner->is_visible ? "Yes" : "No" }}</td>
 							<td>{{ $banner->sort }}</td>
 							<td>{{ $banner->user->name }}</td>
-							<td><i class="fa fa-pencil-square-o"></i></td>
+							<td>
+								<a href="{{ route('ban.edit', $banner->link) }}"><i class="fas fa-edit"></i></a>
+							</td>
 						</tr>
 					@endforeach
 				@else

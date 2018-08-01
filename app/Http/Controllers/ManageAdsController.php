@@ -53,11 +53,19 @@ class ManageAdsController extends Controller
         if($this->validate($request, $rules)) {
             try {
                 $new_cat = new Category();
+
                 $nameCombineService = new MultiLangCombineService();
                 $nameJson = $nameCombineService->createCombineJson($request['cat_en'], $request['cat_ar']);
                 $new_cat->name = $nameJson;
+
                 $new_cat->is_visible = $request['visible'];
                 $new_cat->user_id = auth()->user()->id;
+
+                // Slug/Link Url
+                $slugService = new SlugService();
+                $slug = $slugService->createSlug($request['cat_en']);
+                $new_cat->link = $slug;
+
                 $new_cat->save();
                 return redirect()->route('ads.index');
             } catch(\Exception $e) {
@@ -70,10 +78,9 @@ class ManageAdsController extends Controller
      * [catEdit description]
      * @return [type] [description]
      */
-    public function catEdit($id)
+    public function catEdit($slug)
     {
-        $edit_cat = Category::find($id);
-        // dd($edit_cat->name_ar);
+        $edit_cat = Category::where('link', $slug)->first();
         return view('manage.ads.category.edit', [
             'category' => $edit_cat
         ]);
@@ -98,6 +105,12 @@ class ManageAdsController extends Controller
                 $cat->name = $nameJson;
 
                 $cat->is_visible = $request['visible'];
+
+                // Slug/Link Url
+                $slugService = new SlugService();
+                $slug = $slugService->createSlug($request['cat_en']);
+                $cat->link = $slug;
+
                 $cat->save();
                 return redirect()->route('ads.index');
             } catch(\Exception $e) {
@@ -197,18 +210,71 @@ class ManageAdsController extends Controller
      * [bannerEdit description]
      * @return [type] [description]
      */
-    public function bannerEdit()
+    public function bannerEdit($slug)
     {
-    	# code...
+    	$banner = Banner::where('link', $slug)->first();
+    	$categories = Category::all();
+    	return view('manage.ads.banner.edit', [
+    	    'banner' => $banner,
+            'categories' => $categories
+        ]);
     }
 
     /**
      * [bannerUpdate description]
      * @return [type] [description]
      */
-    public function bannerUpdate()
+    public function bannerUpdate(Request $request, $id)
     {
-    	# code...
+        // Validation
+        $rules = [
+            'category' => 'required',
+            'title_en' => 'required',
+            'title_ar' => 'required',
+            'visible' => 'required',
+            'featured' => 'required',
+            'image' => 'required', // specify a mime type
+        ];
+        if($this->validate($request, $rules)) {
+            try {
+                $banner = Banner::find($id);
+                $banner->user_id = auth()->user()->id;
+                $banner->category_id = $request['category'];
+
+                // Title Arabic and English (JSON Object)
+                $titleCombineService = new MultiLangCombineService();
+                $title_json = $titleCombineService->createCombineJson($request['title_en'], $request['title_ar']);
+                $banner->title = $title_json;
+
+                // Description Arabic and English (JSON Object)
+                $descCombineService = new MultiLangCombineService();
+                $desc_json = $descCombineService->createCombineJson($request['desc_en'], $request['desc_ar']);
+                $banner->desc = $desc_json;
+
+
+                // Slug/Link Url
+                $slugService = new SlugService();
+                $slug = $slugService->createSlug($request['title_en']);
+                $banner->link = $slug;
+
+                // Image
+                if($request->file('image')){
+                    $ima = $request->file('image');
+                    $ima_name = $slug . "." . $ima->getClientOriginalExtension();
+                    $destPath = public_path('/images');
+                    $ima->move($destPath, $ima_name);
+                    $banner->image = $ima_name;
+                }
+
+                $banner->is_visible= $request['visible'];
+                $banner->is_featured = $request['featured'];
+                $banner->sort = $request['sort'] ? $request['sort'] : 0;
+                $banner->save();
+                return redirect()->route('ads.index');
+            } catch (Exception $e) {
+                print_r($e);
+            }
+        }
     }
 
     /**
